@@ -1,7 +1,13 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <div class="navbar bg-base-100 shadow-sm">
     <div class="flex-1">
       <a class="btn btn-ghost text-xl">Travel Log</a>
+    </div>
+    <div>
+      <ThemeToggle />
     </div>
     <div class="flex-none">
       <button class="btn btn-accent">
