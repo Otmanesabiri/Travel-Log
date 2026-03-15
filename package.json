@@ -27,7 +27,7 @@
     "lint-staged": "^16.4.0"
   },
 
-  "lint-staged" : {
+  "lint-staged": {
     "*.{js,ts,vue}": "eslint --fix"
   }
 }
