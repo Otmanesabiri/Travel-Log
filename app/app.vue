@@ -7,7 +7,7 @@
       ✈️
     </div>
     <div class="scenery">
-      🐢 🌴
+      🐢 🌴🌴🌴
     </div>
     <p>Actual travel status: Walking from the bed to the fridge.</p>
   </div>
