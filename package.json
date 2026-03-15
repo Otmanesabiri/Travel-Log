@@ -34,4 +34,5 @@
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --fix"
   }
+
 }
