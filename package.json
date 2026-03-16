@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "db:up": "docker start libsql || docker run -d --name libsql -p 8080:8080 -v libsql-data:/var/lib/sqlite.db remodlai/libsql-server",
+    "dev": "npm run db:up && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -14,11 +15,15 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.0",
     "@nuxt/eslint": "^1.15.2",
     "@nuxt/icon": "^2.2.1",
     "@tailwindcss/vite": "^4.2.1",
+    "@tursodatabase/database": "^0.5.1",
     "daisyui": "^5.5.19",
     "dlx": "^0.2.1",
+    "dotenv": "^17.3.1",
+    "drizzle-orm": "^1.0.0-beta.17-67b1795",
     "nuxt": "^4.4.2",
     "tailwindcss": "^4.2.1",
     "vue": "^3.5.30",
@@ -30,9 +35,11 @@
     "@iconify-json/material-symbols": "^1.2.62",
     "@nuxtjs/color-mode": "^4.0.0",
     "@types/node": "^25.5.0",
+    "drizzle-kit": "^1.0.0-beta.17-67b1795",
     "eslint-plugin-format": "^2.0.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0"
+    "lint-staged": "^16.4.0",
+    "tsx": "^4.21.0"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --fix"
