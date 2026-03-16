@@ -22,12 +22,14 @@
     "nuxt": "^4.4.2",
     "tailwindcss": "^4.2.1",
     "vue": "^3.5.30",
-    "vue-router": "^5.0.3"
+    "vue-router": "^5.0.3",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.7.2",
     "@iconify-json/material-symbols": "^1.2.62",
     "@nuxtjs/color-mode": "^4.0.0",
+    "@types/node": "^25.5.0",
     "eslint-plugin-format": "^2.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0"

@@ -13,7 +13,7 @@ const isDark = computed({
 
 <template>
   <label class="swap swap-rotate mx-4">
-    <!-- input controls the mode via checked and @change to avoid v-model issues with computed colorMode -->
+    <!-- input controls the mode via checked and @change to avoid v-model issues with computed colorMode . -->
     <input
       :checked="isDark"
       type="checkbox"
