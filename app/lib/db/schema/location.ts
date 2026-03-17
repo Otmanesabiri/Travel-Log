@@ -1,5 +1,5 @@
 import { integer, real, sqliteTable, text, unique } from "drizzle-orm/sqlite-core";
-import { users } from "./user";
+import { user } from "./user";
 
 export const locations = sqliteTable("locations", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -10,7 +10,7 @@ export const locations = sqliteTable("locations", {
   latitude: real("latitude").notNull(),
   longitude: real("longitude").notNull(),
   imageUrl: text("image_url"),
-  userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
   updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 }, t => ({

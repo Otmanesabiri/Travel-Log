@@ -1,6 +1,6 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { locations } from "./location";
-import { users } from "./user";
+import { user } from "./user";
 
 export const locationLogs = sqliteTable("location_logs", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -9,7 +9,7 @@ export const locationLogs = sqliteTable("location_logs", {
   startedAt: integer("started_at", { mode: "timestamp" }),
   endedAt: integer("ended_at", { mode: "timestamp" }),
   locationId: integer("location_id").notNull().references(() => locations.id, { onDelete: "cascade" }),
-  userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
 });
 
 export type LocationLog = typeof locationLogs.$inferSelect;

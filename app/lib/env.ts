@@ -7,6 +7,8 @@ export const EnvSchema = z.object({
   TURSO_AUTH_TOKEN: z.string().optional(),
   BETTER_AUTH_SECRET: z.string().optional(),
   BETTER_AUTH_URL: z.string().optional(),
+  GOOGLE_CLIENT_ID: z.string().optional(),
+  GOOGLE_CLIENT_SECRET: z.string().optional(),
 
   // Add environment variables here (e.g., API_BASE_URL, etc.)
 });
