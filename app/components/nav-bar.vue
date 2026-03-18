@@ -1,13 +1,21 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { signIn, signOut, useSession } from "../lib/auth-client";
 
 const session = useSession();
+const isLoggingIn = ref(false);
 
 async function loginWithGoogle() {
-  await signIn.social({
-    provider: "google",
-    callbackURL: "/",
-  });
+  try {
+    isLoggingIn.value = true;
+    await signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  }
+  finally {
+    isLoggingIn.value = false;
+  }
 }
 
 async function logout() {
@@ -64,8 +72,15 @@ async function logout() {
         </template>
 
         <template v-else>
-          <button class="btn btn-accent" @click="loginWithGoogle">
-            Sign in with Google <Icon name="uim:google" size="20" />
+          <button
+            class="btn btn-accent"
+            :disabled="isLoggingIn"
+            @click="loginWithGoogle"
+          >
+            <span v-if="isLoggingIn" class="loading loading-spinner" />
+            <template v-else>
+              Sign in with Google <Icon name="uim:google" size="20" />
+            </template>
           </button>
         </template>
       </ClientOnly>
