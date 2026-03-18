@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { useSession } from "../lib/auth-client";
+
+const session = useSession();
+</script>
+
 <template>
   <div class="hero bg-base-300 container mx-auto mt-4">
     <div class="hero-content text-center">
@@ -10,9 +16,17 @@
           Create your own travel diary, connect with fellow travelers,
           and discover new destinations. Start your journey today!
         </p>
-        <button class="btn btn-accent">
-          Sign in with google <Icon name="uim:google" size="20" />
-        </button>
+
+        <ClientOnly>
+          <template v-if="!session.data?.user">
+            <AuthButton />
+          </template>
+          <template v-else>
+            <NuxtLink to="/profile" class="btn btn-primary">
+              Go to my Profile
+            </NuxtLink>
+          </template>
+        </ClientOnly>
       </div>
     </div>
   </div>

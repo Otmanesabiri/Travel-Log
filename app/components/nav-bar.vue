@@ -1,26 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { signIn, signOut, useSession } from "../lib/auth-client";
+import { useSession } from "../lib/auth-client";
+import { useAuthStore } from "../stores/auth";
 
 const session = useSession();
-const isLoggingIn = ref(false);
-
-async function loginWithGoogle() {
-  try {
-    isLoggingIn.value = true;
-    await signIn.social({
-      provider: "google",
-      callbackURL: "/",
-    });
-  }
-  finally {
-    isLoggingIn.value = false;
-  }
-}
-
-async function logout() {
-  await signOut();
-}
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -66,22 +49,13 @@ async function logout() {
                   Profile
                 </NuxtLink>
               </li>
-              <li><a class="text-error font-medium" @click="logout">Logout</a></li>
+              <li><a class="text-error font-medium" @click="authStore.logout">Logout</a></li>
             </ul>
           </div>
         </template>
 
         <template v-else>
-          <button
-            class="btn btn-accent"
-            :disabled="isLoggingIn"
-            @click="loginWithGoogle"
-          >
-            <span v-if="isLoggingIn" class="loading loading-spinner" />
-            <template v-else>
-              Sign in with Google <Icon name="uim:google" size="20" />
-            </template>
-          </button>
+          <AuthButton />
         </template>
       </ClientOnly>
     </div>
