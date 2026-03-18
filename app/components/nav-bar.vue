@@ -49,7 +49,7 @@ const authStore = useAuthStore();
                   Profile
                 </NuxtLink>
               </li>
-              <li><a class="text-error font-medium" @click="authStore.logout">Logout</a></li>
+              <li><a class="text-error font-medium" @click="authStore.logout"><Icon name="solar:logout-2-outline" /> Logout </a></li>
             </ul>
           </div>
         </template>
