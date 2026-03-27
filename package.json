@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "db:up": "docker start libsql || docker run -d --name libsql -p 8080:8080 -v libsql-data:/var/lib/sqlite.db remodlai/libsql-server",
+    "db:up": "docker start libsql 2>nul || docker run -d --name libsql -p 8080:8080 -v libsql-data:/var/lib/sqlite.db remodlai/libsql-server",
     "dev": "npm run db:up && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

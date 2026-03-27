@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   modules: ["@nuxt/eslint", "@nuxt/icon", "@nuxtjs/color-mode", "@pinia/nuxt"],
-  ssr: false,
+  ssr: true,
   css: ["./app/assets/css/main.css"],
 
   // Connects and types environment variables via runtimeConfig

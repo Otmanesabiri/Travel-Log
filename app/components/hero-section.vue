@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { useSession } from "../lib/auth-client";
 
+const { data: ssrSession } = await useSession(useFetch);
 const session = useSession();
+const user = computed(() => session.value.data?.user || ssrSession.value?.user || null);
 </script>
 
 <template>
@@ -17,16 +20,14 @@ const session = useSession();
           and discover new destinations. Start your journey today!
         </p>
 
-        <ClientOnly>
-          <template v-if="!session.data?.user">
-            <AuthButton />
-          </template>
-          <template v-else>
-            <NuxtLink to="/profile" class="btn btn-primary">
-              Go to my Profile
-            </NuxtLink>
-          </template>
-        </ClientOnly>
+        <template v-if="!user">
+          <AuthButton />
+        </template>
+        <template v-else>
+          <NuxtLink to="/profile" class="btn btn-primary">
+            Go to my Profile
+          </NuxtLink>
+        </template>
       </div>
     </div>
   </div>
