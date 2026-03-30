@@ -70,15 +70,14 @@ async function handleSignOut() {
     ]"
   >
     <div class="flex h-16 items-center justify-between border-b border-base-300 px-4">
-      <div
-        v-if="!isSidebarCollapsed"
-        class="text-lg font-semibold"
-      >
-        Travel Log
-      </div>
+      <TravelLogLogo
+        :size="isSidebarCollapsed ? 28 : 30"
+        :show-text="!isSidebarCollapsed"
+        :show-tagline="false"
+      />
       <button
         type="button"
-        class="btn btn-ghost btn-sm"
+        class="toggle-btn"
         aria-label="Toggle sidebar"
         @click="isSidebarCollapsed = !isSidebarCollapsed"
       >
@@ -134,5 +133,28 @@ async function handleSignOut() {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: none;
+}
+
+.toggle-btn:hover,
+.toggle-btn:focus-visible,
+.toggle-btn:active {
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
+  outline: none;
 }
 </style>

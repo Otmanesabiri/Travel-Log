@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 import { useSession } from "../lib/auth-client";
 import { useAuthStore } from "../stores/auth";
 
 const { data: ssrSession } = await useSession(useFetch);
 const session = useSession();
 const authStore = useAuthStore();
+const route = useRoute();
 
 const user = computed(() => session.value.data?.user || ssrSession.value?.user || null);
 const isPending = computed(() => session.value.isPending && !user.value);
+const isHomeRoute = computed(() => route.path === "/");
+const showCompactLogo = computed(() => Boolean(user.value) && !isHomeRoute.value);
 </script>
 
 <template>
   <div class="navbar bg-base-100 shadow-sm">
     <div class="flex-1">
-      <NuxtLink to="/" class="btn btn-ghost text-xl">
-        Travel Log
+      <NuxtLink to="/" class="logo-link h-auto px-2 py-1 normal-case">
+        <TravelLogLogo
+          :size="34"
+          :show-text="!showCompactLogo"
+          :show-tagline="!showCompactLogo"
+        />
       </NuxtLink>
     </div>
 
@@ -60,3 +68,19 @@ const isPending = computed(() => session.value.isPending && !user.value);
     </div>
   </div>
 </template>
+
+<style scoped>
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  transition: none;
+}
+
+.logo-link:hover,
+.logo-link:focus-visible,
+.logo-link:active {
+  background-color: transparent;
+}
+</style>
