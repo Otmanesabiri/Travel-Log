@@ -12,7 +12,6 @@ const route = useRoute();
 const user = computed(() => session.value.data?.user || ssrSession.value?.user || null);
 const isPending = computed(() => session.value.isPending && !user.value);
 const isHomeRoute = computed(() => route.path === "/");
-const showCompactLogo = computed(() => Boolean(user.value) && !isHomeRoute.value);
 </script>
 
 <template>
@@ -21,8 +20,8 @@ const showCompactLogo = computed(() => Boolean(user.value) && !isHomeRoute.value
       <NuxtLink to="/" class="logo-link h-auto px-2 py-1 normal-case">
         <TravelLogLogo
           :size="34"
-          :show-text="!showCompactLogo"
-          :show-tagline="!showCompactLogo"
+          :show-text="isHomeRoute"
+          :show-tagline="isHomeRoute"
         />
       </NuxtLink>
     </div>
