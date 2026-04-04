@@ -104,20 +104,20 @@ withDefaults(defineProps<{
         <text
           class="cardinal"
           x="24"
-          y="38.5"
+          y="37.5"
           text-anchor="middle"
           dominant-baseline="central"
         >S</text>
         <text
           class="cardinal"
-          x="38"
+          x="37"
           y="24"
           text-anchor="middle"
           dominant-baseline="central"
         >E</text>
         <text
           class="cardinal"
-          x="10"
+          x="11"
           y="24"
           text-anchor="middle"
           dominant-baseline="central"
@@ -164,6 +164,7 @@ withDefaults(defineProps<{
   --hover-text-primary: #ba7517;
   --hover-text-secondary: #ef9f27;
   --hover-ticks: #ef9f27;
+  --cardinal-default: #5f5e59;
   --cardinal-north: #e8593c;
 
   display: inline-flex;
@@ -195,6 +196,7 @@ withDefaults(defineProps<{
   --hover-text-primary: #cfe2ff;
   --hover-text-secondary: #a9c6f2;
   --hover-ticks: #a9c6f2;
+  --cardinal-default: #d8d6ce;
   --cardinal-north: #c3dcff;
 }
 
@@ -214,17 +216,13 @@ withDefaults(defineProps<{
 
 /* Idle state */
 .ring-outer {
-  transition:
-    stroke 0.4s,
-    stroke-width 0.3s;
+  transition: stroke-width 0.3s;
   stroke: var(--compass-ring-color);
   stroke-width: 1.15;
   fill: none;
 }
 .ring-inner {
-  transition:
-    stroke 0.4s,
-    opacity 0.4s;
+  transition: opacity 0.4s;
   opacity: 0.55;
   stroke: var(--compass-ring-color);
   stroke-width: 0.75;
@@ -232,42 +230,36 @@ withDefaults(defineProps<{
 }
 .needle-north {
   transform-origin: 24px 24px;
-  transition:
-    fill 0.4s,
-    stroke 0.4s;
   fill: var(--compass-needle-north);
   stroke: var(--compass-needle-north-stroke);
   stroke-width: 0.45;
 }
 .needle-south {
   transform-origin: 24px 24px;
-  transition:
-    fill 0.4s,
-    stroke 0.4s;
   fill: var(--compass-needle-south);
   stroke: var(--compass-needle-south-stroke);
   stroke-width: 0.4;
 }
 .center-dot {
-  transition:
-    fill 0.4s,
-    stroke 0.4s;
   fill: var(--compass-center);
   stroke: var(--compass-center-stroke);
   stroke-width: 0.3;
 }
 .cardinal {
-  transition:
-    opacity 0.4s,
-    fill 0.4s;
-  opacity: 0;
-  font-size: 6px;
-  fill: var(--color-text-tertiary);
+  transition: opacity 0.4s;
+  opacity: 1;
+  font-size: 7.5px;
+  font-weight: 600;
+  fill: var(--cardinal-default);
+  paint-order: stroke;
+  stroke: hsl(var(--b1));
+  stroke-width: 0.35px;
 }
 .cardinal.north {
+  opacity: 1;
   fill: var(--cardinal-north);
-  font-size: 7px;
-  font-weight: 500;
+  font-size: 8.2px;
+  font-weight: 700;
 }
 .tick-marks {
   transition: opacity 0.4s;
@@ -339,7 +331,7 @@ withDefaults(defineProps<{
 }
 .logo-container:hover .cardinal {
   animation: fade-in-cardinal 0.3s ease 0.2s forwards;
-  opacity: 0;
+  opacity: 0.72;
 }
 .logo-container:hover .tick-marks {
   opacity: 1;
@@ -362,7 +354,6 @@ withDefaults(defineProps<{
   font-weight: 500;
   color: var(--color-text-primary);
   letter-spacing: -0.3px;
-  transition: color 0.4s;
 }
 .logo-tagline {
   display: block;
@@ -372,9 +363,7 @@ withDefaults(defineProps<{
   letter-spacing: 1.8px;
   text-transform: uppercase;
   margin-top: 6px;
-  transition:
-    color 0.4s,
-    letter-spacing 0.4s;
+  transition: letter-spacing 0.4s;
 }
 .logo-container:hover .logo-name {
   color: var(--hover-text-primary);

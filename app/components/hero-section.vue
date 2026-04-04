@@ -24,8 +24,8 @@ const user = computed(() => session.value.data?.user || ssrSession.value?.user |
           <AuthButton />
         </template>
         <template v-else>
-          <NuxtLink to="/profile" class="btn btn-primary">
-            Go to my Profile
+          <NuxtLink to="/dashboard" class="btn btn-primary">
+            Go to Dashboard
           </NuxtLink>
         </template>
       </div>

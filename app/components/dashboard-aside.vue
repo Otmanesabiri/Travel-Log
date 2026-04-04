@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
+const SIDEBAR_KEY = "sidebar-collapsed";
 const isSidebarCollapsed = ref(false);
+const isSidebarReady = ref(false);
 const isMobileMenuOpen = ref(false);
 const authStore = useAuthStore();
 
@@ -16,6 +18,19 @@ const navItems = [
 ];
 
 const signOutItem = { label: "Sign Out", icon: "tabler:logout" };
+
+onMounted(() => {
+  const stored = localStorage.getItem(SIDEBAR_KEY);
+  if (stored !== null) {
+    isSidebarCollapsed.value = stored === "true";
+  }
+  isSidebarReady.value = true;
+});
+
+function toggleSidebar() {
+  isSidebarCollapsed.value = !isSidebarCollapsed.value;
+  localStorage.setItem(SIDEBAR_KEY, String(isSidebarCollapsed.value));
+}
 
 async function handleSignOut() {
   isMobileMenuOpen.value = false;
@@ -63,7 +78,8 @@ async function handleSignOut() {
   </Transition>
 
   <aside
-    class="fixed left-0 top-0 z-40 h-screen border-r border-base-300/70 bg-base-100/90 backdrop-blur-md transition-all duration-300"
+    v-show="isSidebarReady"
+    class="sidebar-panel fixed left-0 top-0 z-40 h-screen border-r border-base-300/70 bg-base-100/90 backdrop-blur-sm"
     :class="[
       isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
       isSidebarCollapsed ? 'w-20' : 'w-72',
@@ -79,7 +95,7 @@ async function handleSignOut() {
         type="button"
         class="toggle-btn"
         aria-label="Toggle sidebar"
-        @click="isSidebarCollapsed = !isSidebarCollapsed"
+        @click="toggleSidebar"
       >
         <Icon
           :name="isSidebarCollapsed ? 'tabler:chevron-right' : 'tabler:chevron-left'"
@@ -94,7 +110,8 @@ async function handleSignOut() {
         :key="item.to"
         :to="item.to"
         class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition"
-        :class="route.path === item.to ? 'bg-primary/15 text-primary' : 'text-base-content/80 hover:bg-base-200'"
+        :data-tip="isSidebarCollapsed ? item.label : null"
+        :class="[route.path === item.to ? 'bg-primary/15 text-primary' : 'text-base-content/80 hover:bg-base-200', isSidebarCollapsed ? 'tooltip tooltip-right' : '']"
         @click="isMobileMenuOpen = false"
       >
         <Icon
@@ -104,12 +121,13 @@ async function handleSignOut() {
         <span v-if="!isSidebarCollapsed">{{ item.label }}</span>
       </NuxtLink>
 
-      <div class="my-3 border-t border-base-300" />
+      <div class="divider" />
 
       <button
         type="button"
         class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-error/90 transition hover:bg-error/10"
-        :class="authStore.isLoggingOut ? 'cursor-not-allowed opacity-70' : ''"
+        :class="[authStore.isLoggingOut ? 'cursor-not-allowed opacity-70' : '', isSidebarCollapsed ? 'tooltip tooltip-right' : '']"
+        :data-tip="isSidebarCollapsed ? signOutItem.label : null"
         :disabled="authStore.isLoggingOut"
         @click="handleSignOut"
       >
@@ -156,5 +174,11 @@ async function handleSignOut() {
   color: inherit;
   box-shadow: none;
   outline: none;
+}
+
+.sidebar-panel {
+  transition-property: transform, width;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
 }
 </style>
